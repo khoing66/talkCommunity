@@ -1,0 +1,1 @@
+alter table USER add dsf char(59);
