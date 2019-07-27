@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Create by Khoing.
  */
 @Controller
-public class controller {
+public class test {
     @GetMapping("/hello")
     public String hello(@RequestParam(name = "name") String name, Model model) {
         model.addAttribute("name", name);
