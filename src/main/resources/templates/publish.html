@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8" http-equiv="content-type" content="text/html">
     <title>talk community</title>
@@ -26,6 +26,7 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
+
                 <li class="dropdown" th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
                     <ul class="dropdown-menu" >
@@ -49,21 +50,22 @@
             <div class="col-lg-9 col-md-12 col-sm-12 col-12" >
                 <h2 > <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发起</h2>
                 <hr>
-                <form action="">
+                <form action="/publish" method="post">
                     <div class="form-group">
-                        <label for="questionTitle">问题标题（简单概括）：</label>
-                        <input type="text" class="form-control" id="questionTitle" name="questionTitle" placeholder="请输入你要咨询的问题">
+                        <label for="title">问题标题（简单概括）：</label>
+                        <input type="text" class="form-control" id="title" name="title" th:value="${title}" placeholder="请输入你要咨询的问题">
                     </div>
                     <div class="form-group">
-                        <label for="questionComplete">问题补充（必填，请参照右侧提示）</label>
-                        <textarea name="questionComplete" id="questionComplete"  class="form-control"  cols="30" rows="16"></textarea>
+                        <label for="description">问题补充（必填，请参照右侧提示）</label>
+                        <textarea name="description" id="description"  class="form-control" th:value="${description}" cols="30" rows="16"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="tagTitle">添加标题：</label>
-                        <input type="text" class="form-control" id="tagTitle" name="tagTitle" placeholder="标签以英文半角逗号隔开">
+                        <label for="tag">添加标签：</label>
+                        <input type="text" class="form-control" id="tag" name="tag" th:value="${tag}" placeholder="标签以英文半角逗号隔开">
                     </div>
+                    <span><div class="alert alert-danger" role="alert" style="margin-top: 5px;width: 50%;float:left" th:text="${error}" th:if="${error}!=null"></div></span>
 
-                    <button type="submit" class="btn btn-success  btn-publish"   >确认发布</button>
+                    <button type="submit" class="btn btn-success  btn-publish">确认发布</button>
 
                 </form>
             </div>
