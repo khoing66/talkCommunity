@@ -5,12 +5,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import study.community.dto.accessTokenDTO;
 import study.community.mapper.UserMapper;
 import study.community.model.User;
 import study.community.provider.githubProvider;
-import study.community.provider.githubUser;
+import study.community.dto.githubUser;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +56,7 @@ public class AuthorizeController {
             user.setToken(UUID.randomUUID().toString());
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModify(user.getGmtCreate());
+            user.setAvatarUrl(gitUser.getAvatarUrl());
             userMapper.insertUser(user);
 
             String token = user.getToken();

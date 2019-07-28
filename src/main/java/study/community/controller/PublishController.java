@@ -56,14 +56,16 @@ public class PublishController {
             model.addAttribute("error", "标签不能为空");
             return "/publish";
         }
-        Cookie[] cookies = request.getCookies();
         User user = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                user = userMapper.findByToken(cookie.getValue());
-                if (null != user) {
-                    request.getSession().setAttribute("user", user);
-                    break;
+        Cookie[] cookies = request.getCookies();
+        if (null != cookies && 0 != cookies.length) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    user = userMapper.findByToken(cookie.getValue());
+                    if (null != user) {
+                        request.getSession().setAttribute("user", user);
+                        break;
+                    }
                 }
             }
         }

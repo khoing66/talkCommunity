@@ -12,7 +12,7 @@ import study.community.model.User;
  */
 @Mapper
 public interface UserMapper {
-    @Insert("insert into user (name,account_id,token,gmt_create,gmt_modify) values (#{name},#{accountId},#{token},#{gmtCreate},#{gmtModify})")
+    @Insert("insert into user (name,account_id,token,gmt_create,gmt_modify,avatar_url) values (#{name},#{accountId},#{token},#{gmtCreate},#{gmtModify},#{avatarUrl})")
     void insertUser(User user);
 
     @Select("select * from user where token = #{token}")
