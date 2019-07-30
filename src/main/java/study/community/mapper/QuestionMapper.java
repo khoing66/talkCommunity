@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.web.bind.annotation.RequestParam;
+import study.community.dto.QuestionDto;
 import study.community.model.Question;
 
 import java.util.List;
@@ -32,4 +34,8 @@ public interface QuestionMapper {
 
     @Select("select count(1) from question where creator_id = #{accountId}")
     Integer countByAccountId(@Param("accountId")String accountId);
+
+    @Select("select * from question where id = #{id}")
+    Question getById(@Param("id") Integer id);
+
 }

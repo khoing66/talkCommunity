@@ -58,20 +58,8 @@ public class PublishController {
             model.addAttribute("error", "标签不能为空");
             return "/publish";
         }
+        User user = (User)request.getSession().getAttribute("user");
 
-        User user = null;
-        Cookie[] cookies = request.getCookies();
-        if (null != cookies && 0 != cookies.length) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    user = userMapper.findByToken(cookie.getValue());
-                    if (null != user) {
-                        request.getSession().setAttribute("user", user);
-                        break;
-                    }
-                }
-            }
-        }
         if (null == user) {
             model.addAttribute("error", "用户未登录");
             return "publish";

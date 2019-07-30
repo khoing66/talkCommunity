@@ -18,3 +18,12 @@
 .profile .section {
     margin-top: 15px;
 }
+.hr-dot{
+    height:2px;
+    border:none;
+    border-top: 2px dotted ;
+}
+.menu{
+    color:#999;
+    font-size: 14px;
+}

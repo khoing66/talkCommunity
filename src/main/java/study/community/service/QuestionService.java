@@ -2,6 +2,7 @@ package study.community.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import study.community.dto.PaginationDTO;
@@ -114,5 +115,14 @@ public class QuestionService {
 
 
         return paginationDTO;
+    }
+
+    public QuestionDto getById(Integer id) {
+        Question question = questionMapper.getById(id);
+        QuestionDto questionDto = new QuestionDto();
+        BeanUtils.copyProperties(question, questionDto);
+        User user = userMapper.findById(question.getCreatorId());
+        questionDto.setUser(user);
+        return questionDto;
     }
 }
