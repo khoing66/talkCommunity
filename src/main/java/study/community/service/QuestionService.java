@@ -29,6 +29,7 @@ public class QuestionService {
     @Autowired
     UserMapper userMapper;
 
+
     public  PaginationDTO list( Integer page, Integer size) {
         Integer totalPage;
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -64,11 +65,6 @@ public class QuestionService {
 
         }
         paginationDTO.setQuestions(questionDtos);
-
-
-
-
-
 
         return paginationDTO;
     }
@@ -109,11 +105,6 @@ public class QuestionService {
         }
         paginationDTO.setQuestions(questionDtos);
 
-
-
-
-
-
         return paginationDTO;
     }
 
@@ -124,5 +115,17 @@ public class QuestionService {
         User user = userMapper.findById(question.getCreatorId());
         questionDto.setUser(user);
         return questionDto;
+    }
+
+    public void createOrUpdate(Question question) {
+        if (question.getId() == null) {
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModify(question.getGmtCreate());
+            questionMapper.create(question);
+        } else {
+            question.setGmtModify(System.currentTimeMillis());
+            questionMapper.update(question);
+
+        }
     }
 }

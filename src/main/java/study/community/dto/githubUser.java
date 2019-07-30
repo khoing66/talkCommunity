@@ -8,8 +8,8 @@ import lombok.Data;
 @Data
 public class githubUser {
     private String name;
-    private long id;
-    private String dio;
+    private String id;
+    private String bio;
     private String avatarUrl;
 
 

@@ -41,9 +41,6 @@ public class indexController {
         PaginationDTO pagination = questionService.list(page,size);
         model.addAttribute("pagination", pagination);
 
-
-
-
         return "index";
     }
 }

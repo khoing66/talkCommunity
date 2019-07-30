@@ -51,15 +51,26 @@ public class AuthorizeController {
         githubUser gitUser = githubPvder.getUser(accessTokenDTO);
         if (null != gitUser) {
             User user = new User();
+            String token;
             user.setName(gitUser.getName());
-            user.setAccountId(String.valueOf(gitUser.getId()));
-            user.setToken(UUID.randomUUID().toString());
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModify(user.getGmtCreate());
+            user.setAccountId(gitUser.getId());
+            user.setBio(gitUser.getBio());
             user.setAvatarUrl(gitUser.getAvatarUrl());
-            userMapper.insertUser(user);
+            user.setToken(UUID.randomUUID().toString());
+            User dbUser = userMapper.findById(user.getAccountId());
+            if (dbUser == null) {
+                user.setGmtCreate(System.currentTimeMillis());
+                user.setGmtModify(user.getGmtCreate());
+                userMapper.insertUser(user);
+                token = user.getToken();
+            } else {
+                user.setGmtModify(System.currentTimeMillis());
+                userMapper.updateUser(user);
+                token = userMapper.getUserToken(user);
 
-            String token = user.getToken();
+            }
+
+
             response.addCookie(new Cookie("token", token));
 
             return "redirect:/";
@@ -69,6 +80,16 @@ public class AuthorizeController {
         }
 
        // return "index";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
+
     }
 
 
