@@ -1,18 +1,17 @@
-package study.community.model;
+package study.community.dto;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
+import study.community.model.User;
 
 /**
- * @ClassName Question
+ * @ClassName QuestionDto
  * @Description TODO
  * @Author khoing
- * @Date 2019/7/28 13:24
+ * @Date 2019/7/28 23:30
  * @Version 1.0
  **/
-
 @Data
-public class Question {
+public class QuestionDto {
     private Integer id;
     private String title;
     private String description;
@@ -23,5 +22,6 @@ public class Question {
     private Integer commentCount;
     private Integer likeCount;
     private Integer viewCount;
+    private User user;
 
 }

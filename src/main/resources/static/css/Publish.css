@@ -1,0 +1,20 @@
+.btn-publish {
+    margin-bottom: 15px;
+    float:right;
+}
+.main{
+    background-color: #efefef;
+}
+.img-size {
+    width: 46px;
+    height: 46px;
+
+}
+.text-desc {
+    font-size: 12px;
+    font-weight: normal;
+    font-color: #999;
+}
+.profile .section {
+    margin-top: 15px;
+}

@@ -25,8 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController {
     @Autowired
     UserMapper userMapper;
-    @Autowired
-    Question question;
+
     @Autowired
     QuestionMapper questionMapper;
 
@@ -36,26 +35,30 @@ public class PublishController {
     }
 
     @PostMapping("/publish")
-    public String create(@RequestParam(name = "title") String title,
-                         @RequestParam(name = "description") String descrition,
-                         @RequestParam(name = "tag") String tag,
+    public String create(@RequestParam(value = "title", required = false) String title,
+                         @RequestParam(value = "description", required = false)String descrition,
+                         @RequestParam(value = "tag", required = false) String tag,
                          HttpServletRequest request,
                          Model model) {
         model.addAttribute("title", title);
         model.addAttribute("description", descrition);
         model.addAttribute("tag", tag);
-        if (null == title) {
+        if (null == title || "" == title) {
+
             model.addAttribute("error", "标题不能为空");
             return "/publish";
         }
-        if (null == descrition) {
+        if (null == descrition || "" == descrition) {
+
             model.addAttribute("error", "描述不能为空");
             return "/publish";
         }
-        if (null == tag) {
+        if (null == tag || "" == tag) {
+
             model.addAttribute("error", "标签不能为空");
             return "/publish";
         }
+
         User user = null;
         Cookie[] cookies = request.getCookies();
         if (null != cookies && 0 != cookies.length) {
@@ -73,6 +76,7 @@ public class PublishController {
             model.addAttribute("error", "用户未登录");
             return "publish";
         }
+        Question question = new Question();
         question.setTitle(title);
         question.setDescription(descrition);
         question.setTag(tag);

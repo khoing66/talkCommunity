@@ -4,7 +4,10 @@ import org.apache.ibatis.annotations.Insert;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import study.community.model.Question;
 import study.community.model.User;
+
+import java.util.List;
 
 
 /**
@@ -17,4 +20,8 @@ public interface UserMapper {
 
     @Select("select * from user where token = #{token}")
     User findByToken(String token);
+
+    @Select("select * from user where account_id = #{accountId)}")
+    User findById(String accountId);
+
 }
