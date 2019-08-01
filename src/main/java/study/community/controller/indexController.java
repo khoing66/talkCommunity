@@ -1,25 +1,16 @@
 package study.community.controller;
 
-import com.sun.deploy.security.SessionCertStore;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import study.community.dto.PaginationDTO;
-import study.community.dto.QuestionDto;
 import study.community.mapper.QuestionMapper;
 import study.community.mapper.UserMapper;
-import study.community.model.Question;
-import study.community.model.User;
 import study.community.service.QuestionService;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Create by Khoing.

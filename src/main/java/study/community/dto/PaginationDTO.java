@@ -1,7 +1,6 @@
 package study.community.dto;
 
 import lombok.Data;
-import study.community.model.Question;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
  **/
 @Data
 public class PaginationDTO {
-    private List<QuestionDto> questions;
+    private List<QuestionDTO> questions;
     private boolean showPrevious;
     private boolean showNext;
     private boolean showFirstPage;
@@ -35,7 +34,7 @@ public class PaginationDTO {
 
         for (int i = 1; i <= 3; i++) {
             if ((page - i) > 0) {
-                pages.add(0,page - i);
+                pages.add(0, page - i);
             }
             if ((page + i) <= totalPage) {
                 pages.add(page + i);

@@ -3,11 +3,9 @@ package study.community.service;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import study.community.dto.PaginationDTO;
-import study.community.dto.QuestionDto;
+import study.community.dto.QuestionDTO;
 import study.community.exception.CustomizeErrorCode;
 import study.community.exception.CustomizeException;
 import study.community.mapper.QuestionExtMapper;
@@ -41,7 +39,7 @@ public class QuestionService {
     public  PaginationDTO list( Integer page, Integer size) {
         Integer totalPage;
         PaginationDTO paginationDTO = new PaginationDTO();
-        List<QuestionDto> questionDtos = new ArrayList<>();
+        List<QuestionDTO> questionDtos = new ArrayList<>();
 
         Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
 
@@ -69,7 +67,7 @@ public class QuestionService {
             UserExample userExample = new UserExample();
             userExample.createCriteria().andAccountIdEqualTo(question.getCreatorId());
             List<User> users = userMapper.selectByExample(userExample);
-            QuestionDto questionDto = new QuestionDto();
+            QuestionDTO questionDto = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDto);
             questionDto.setUser(users.get(0));
             questionDtos.add(questionDto);
@@ -84,7 +82,7 @@ public class QuestionService {
     public PaginationDTO list(String accountId, Integer page, Integer size) {
         Integer totalPage;
         PaginationDTO paginationDTO = new PaginationDTO();
-        List<QuestionDto> questionDtos = new ArrayList<>();
+        List<QuestionDTO> questionDtos = new ArrayList<>();
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorIdEqualTo(accountId);
         Integer UsertotalCount = (int)questionMapper.countByExample(questionExample);
@@ -113,7 +111,7 @@ public class QuestionService {
             UserExample example = new UserExample();
             example.createCriteria().andAccountIdEqualTo(question.getCreatorId());
             List<User> users = userMapper.selectByExample(example);
-            QuestionDto questionDto = new QuestionDto();
+            QuestionDTO questionDto = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDto);
             questionDto.setUser(users.get(0));
             questionDtos.add(questionDto);
@@ -124,12 +122,12 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public QuestionDto getById(Long id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (null == question) {
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         }
-        QuestionDto questionDto = new QuestionDto();
+        QuestionDTO questionDto = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDto);
         UserExample example = new UserExample();
         example.createCriteria().andAccountIdEqualTo(question.getCreatorId());

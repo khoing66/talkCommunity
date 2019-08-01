@@ -17,6 +17,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     SYS_ERROR(2004, "服务器炸了，我的天！！！！"),
     TYPE_PARAM_WRONG(2005,"评论类型错误或者你评论的问题不存在"),
     COMMENT_NOT_FOUND(2006,"回复的评论不存在，要不要换个试试？");
+    
     private String message;
     private Integer code;
     @Override

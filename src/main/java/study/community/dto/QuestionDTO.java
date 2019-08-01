@@ -11,7 +11,7 @@ import study.community.model.User;
  * @Version 1.0
  **/
 @Data
-public class QuestionDto {
+public class QuestionDTO {
     private Long id;
     private String title;
     private String description;

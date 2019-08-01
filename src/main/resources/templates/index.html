@@ -9,6 +9,16 @@
     <script src="js/jquery-3.4.1.min.js"></script>
 <!--    放在bootstrap的上面-->
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <script type="application/javascript">
+        window.onload = function () {
+            var closable = window.localStorage.getItem("closable");
+        debugger;
+            if (closable == "true") {
+                window.close();
+                window.localStorage.removeItem("closable");
+            }
+        }
+    </script>
 
 </head>
    <div th:insert="navigation::nav"></div>
