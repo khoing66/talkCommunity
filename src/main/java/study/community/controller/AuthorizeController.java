@@ -8,16 +8,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import study.community.dto.accessTokenDTO;
 import study.community.mapper.UserMapper;
 import study.community.model.User;
+import study.community.model.UserExample;
 import study.community.provider.githubProvider;
 import study.community.dto.githubUser;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Create by Khoing.
+ * @author khoing
  */
 @Controller
 public class AuthorizeController {
@@ -51,26 +54,35 @@ public class AuthorizeController {
         githubUser gitUser = githubPvder.getUser(accessTokenDTO);
         if (null != gitUser) {
             User user = new User();
-            String token;
             user.setName(gitUser.getName());
             user.setAccountId(gitUser.getId());
             user.setBio(gitUser.getBio());
             user.setAvatarUrl(gitUser.getAvatarUrl());
             user.setToken(UUID.randomUUID().toString());
-            User dbUser = userMapper.findById(user.getAccountId());
-            if (dbUser == null) {
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
+            List<User> dbUsers = userMapper.selectByExample(userExample);
+
+            if ( dbUsers.size()==0) {
                 user.setGmtCreate(System.currentTimeMillis());
                 user.setGmtModify(user.getGmtCreate());
-                userMapper.insertUser(user);
-                token = user.getToken();
+                userMapper.insert(user);
+
             } else {
+                User modifyUser = new User();
+                modifyUser.setGmtModify(System.currentTimeMillis());
+                modifyUser.setToken(user.getToken());
+                modifyUser.setAvatarUrl(user.getAvatarUrl());
+                modifyUser.setBio(user.getBio());
+                modifyUser.setName(user.getName());
                 user.setGmtModify(System.currentTimeMillis());
-                userMapper.updateUser(user);
-                token = userMapper.getUserToken(user);
+                UserExample example = new UserExample();
+                example.createCriteria().andAccountIdEqualTo(user.getAccountId());
+                userMapper.updateByExampleSelective(modifyUser, example);
+
 
             }
-
-
+            String token = user.getToken();
             response.addCookie(new Cookie("token", token));
 
             return "redirect:/";

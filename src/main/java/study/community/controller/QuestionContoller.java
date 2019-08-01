@@ -23,9 +23,10 @@ public class QuestionContoller {
     @Autowired
     QuestionService questionService;
     @GetMapping("/question/{id}")
-    public String question(@PathVariable(name = "id") Integer id , Model model) {
+    public String question(@PathVariable(name = "id") Long id , Model model) {
         QuestionDto questionDto = questionService.getById(id);
         model.addAttribute("question", questionDto);
+        questionService.incView(id);
         return "question";
     }
 }

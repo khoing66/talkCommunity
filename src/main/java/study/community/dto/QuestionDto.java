@@ -12,7 +12,7 @@ import study.community.model.User;
  **/
 @Data
 public class QuestionDto {
-    private Integer id;
+    private Long id;
     private String title;
     private String description;
     private String tag;
