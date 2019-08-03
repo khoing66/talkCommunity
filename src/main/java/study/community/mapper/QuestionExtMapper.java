@@ -2,6 +2,8 @@ package study.community.mapper;
 
 import study.community.model.Question;
 
+import java.util.List;
+
 /**
  * @ClassName QuestionExtMapper
  * @Description TODO
@@ -13,4 +15,6 @@ public interface QuestionExtMapper {
     int incView(Question question);
 
     int incComment(Question question);
+
+    List<Question> selectRelated(Question question);
 }

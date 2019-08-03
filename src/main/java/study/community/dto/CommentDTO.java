@@ -12,11 +12,13 @@ import study.community.model.User;
  **/
 @Data
 public class CommentDTO {
+    private Long id;
     private Long parentId;
     private Integer type;
     private String commentor;
-    private Long gmt_create;
-    private Long gmt_modify;
+    private Long gmtCreate;
+    private Long gmtModify;
     private String content;
+    private Long commentCount;
     private User user;
 }

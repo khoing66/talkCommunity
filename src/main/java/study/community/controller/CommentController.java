@@ -2,18 +2,18 @@ package study.community.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import study.community.dto.CommentCreateDTO;
+import study.community.dto.CommentDTO;
 import study.community.dto.ResultDTO;
+import study.community.enums.CommentTypeEnum;
 import study.community.exception.CustomizeErrorCode;
 import study.community.model.Comment;
 import study.community.model.User;
 import study.community.service.CommentService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @ClassName CommentController
@@ -46,12 +46,22 @@ public class CommentController {
         comment.setType(commentCreateDTO.getType());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModify(System.currentTimeMillis());
-        comment.setCommentor("19");
+        comment.setCommentor(user.getAccountId());
+        comment.setCommentCount(0L);
         comment.setLikeCount(0L);
         commentService.insert(comment);
 
 
         return ResultDTO.okOf();
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
+    public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id") Long id) {
+        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+        return ResultDTO.okOf(commentDTOS);
+    }
+
+
 
 }

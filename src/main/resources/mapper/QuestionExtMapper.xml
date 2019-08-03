@@ -31,7 +31,18 @@
 
     </update>
 
-
+    <select id="selectRelated" parameterType="study.community.model.Question" resultMap="BaseResultMap">
+        select * from QUESTION where id!=#{id} and tag regexp #{tag}
+<!--        <where>-->
+<!--            <if test="id != null">-->
+<!--                and id != #{id}-->
+<!--            </if>-->
+<!--            <if test="tag != null and tag != ''">-->
+<!--                and tag regexp #{tag}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        order by gmt_create desc limit 20-->
+    </select>
 
 <!--<select id="selectRelated" parameterType="life.majiang.community.model.Question" resultMap="BaseResultMap">-->
 <!--    select * from QUESTION-->

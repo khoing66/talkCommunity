@@ -1,5 +1,6 @@
 package study.community.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import study.community.cache.TagCache;
 import study.community.dto.QuestionDTO;
 import study.community.mapper.UserMapper;
 import study.community.model.Question;
@@ -32,7 +34,10 @@ public class PublishController {
     QuestionService questionService;
 
     @GetMapping("/publish")
-    public String publish() {
+    public String publish(Model model) {
+        //        把所有的标签库都通过model传到前台
+        model.addAttribute("tags", TagCache.get());
+
         return "publish";
     }
 
@@ -46,27 +51,44 @@ public class PublishController {
         model.addAttribute("title", title);
         model.addAttribute("description", descrition);
         model.addAttribute("tag", tag);
+
+//        把所有的标签库都通过model传到前台
+        model.addAttribute("tags", TagCache.get());
+
+        User user = (User)request.getSession().getAttribute("user");
+        if (null == user) {
+            model.addAttribute("error", "用户未登录");
+            return "publish";
+        }
+
         if (null == title || "" == title) {
 
             model.addAttribute("error", "标题不能为空");
             return "/publish";
         }
+
         if (null == descrition || "" == descrition) {
 
             model.addAttribute("error", "描述不能为空");
             return "/publish";
         }
+
         if (null == tag || "" == tag) {
 
             model.addAttribute("error", "标签不能为空");
             return "/publish";
         }
-        User user = (User)request.getSession().getAttribute("user");
 
-        if (null == user) {
-            model.addAttribute("error", "用户未登录");
-            return "publish";
+        String invalid = TagCache.filterInvalid(tag);
+        if (StringUtils.isNotBlank(invalid)) {
+
+            model.addAttribute("error", "输入非法标签，或者是国家法律禁止的"+invalid);
+            return "/publish";
         }
+
+
+
+
         Question question = new Question();
         question.setTitle(title);
         question.setDescription(descrition);
@@ -84,6 +106,10 @@ public class PublishController {
         model.addAttribute("description", quesiton.getDescription());
         model.addAttribute("tag", quesiton.getTag());
         model.addAttribute("id", quesiton.getId());
+
+        //        把所有的标签库都通过model传到前台
+        model.addAttribute("tags", TagCache.get());
+
 
 
         return "publish";
