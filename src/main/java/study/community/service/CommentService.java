@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.community.dto.CommentDTO;
 import study.community.enums.CommentTypeEnum;
+import study.community.enums.NotificationStatusEnum;
+import study.community.enums.NotificationTypeEnum;
 import study.community.exception.CustomizeErrorCode;
 import study.community.exception.CustomizeException;
 import study.community.mapper.*;
@@ -36,9 +38,11 @@ public class CommentService {
     private UserMapper userMapper;
     @Autowired
     private CommentExtMapper commentExtMapper;
+    @Autowired
+    private NotificationMapper notificationMapper;
 
     @Transactional
-    public void insert(Comment comment) {
+    public void insert(Comment comment, User commentor) {
 
         if (comment.getParentId() == null || comment.getParentId() == 0) {
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
@@ -60,15 +64,25 @@ public class CommentService {
 
                 dbComment.setCommentCount(1L);
                 commentExtMapper.incCommentCount(dbComment);
-//
+
+                Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
+                if (question == null) {
+                    throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+                }
+
+//                    只有两级评论不用循环
 //                while (dbComment != null) {
 //                    Long parentId = dbComment.getParentId();
-//                    dbComment = commentMapper.selectByPrimaryKey(parentId);
+//                    Comment parentComment = commentMapper.selectByPrimaryKey(parentId);
 //                    Question question = questionMapper.selectByPrimaryKey(parentId);
-//                    if (dbComment == null && question != null) {
-//                        questionExtMapper.incComment(question);
+//                    if (parentComment == null && question != null) {
+//                        //回复评论，也增长回复数，后期完善
+////                      questionExtMapper.incComment(question);
 //                    }
 //                }
+                //创建评论下通知
+                createNotify(comment, dbComment.getCommentor(), commentor.getName(), question.getTitle(), NotificationTypeEnum.REPLY_COMMENT.getType(), question.getId());
+
             }
         } else {
             //回复问题
@@ -80,7 +94,24 @@ public class CommentService {
 
             question.setCommentCount(1);
             questionExtMapper.incComment(question);
+
+            //创建问题下的通知
+            //这里设置的外部id为问题的id，其实应该是问题的creatorId，后期把accountid转为int，并把外键设置为user的id
+            createNotify(comment, question.getCreatorId(), commentor.getName(), question.getTitle(), NotificationTypeEnum.REPLY_COMMENT.getType(), question.getId());
         }
+    }
+    //添加通知
+    private void createNotify(Comment comment, String receiver, String notifierName, String outerTitle, int type, Long outerId) {
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setNotifier(comment.getCommentor());//commentor 为评论人
+        notification.setReceiver(receiver);
+        notification.setOuterId(outerId);//给每个评论都设置其问题的id
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
+        notification.setType(type);
+        notification.setStatus( NotificationStatusEnum.UNREADED.getStatus());
+        notificationMapper.insert(notification);
     }
 
 

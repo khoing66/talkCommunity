@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import study.community.dto.PaginationDTO;
 import study.community.dto.QuestionDTO;
+import study.community.dto.QuestionSearchDTO;
 import study.community.exception.CustomizeErrorCode;
 import study.community.exception.CustomizeException;
 import study.community.mapper.QuestionExtMapper;
@@ -40,13 +41,20 @@ public class QuestionService {
     private QuestionExtMapper questionExtMapper;
 
 
-    public  PaginationDTO list( Integer page, Integer size) {
+    public  PaginationDTO list( Integer page, Integer size,String search) {
+        if (StringUtils.isNotBlank(search)) {//isBlank相当于判断空和“”和空字符串
+            String[] tags = StringUtils.split(search, " ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
+
         Integer totalPage;
         PaginationDTO paginationDTO = new PaginationDTO();
         List<QuestionDTO> questionDtos = new ArrayList<>();
 
+        QuestionSearchDTO questionSearchDTO = new QuestionSearchDTO();
+        questionSearchDTO.setSearch(search);
 
-        Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
+        Integer totalCount = (int) questionExtMapper.countBySearch(questionSearchDTO);
 
         if (totalCount % size == 0 || totalCount == 0) {
             totalPage = totalCount / size;
@@ -65,7 +73,9 @@ public class QuestionService {
         Integer offSet = size * (page - 1);
         QuestionExample example = new QuestionExample();
         example.setOrderByClause("gmt_create desc");
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example, new RowBounds(offSet, size));
+        questionSearchDTO.setPage(offSet);
+        questionSearchDTO.setSize(size);
+        List<Question> questions = questionExtMapper.selectBySearch(questionSearchDTO);
 
 
         for (Question question : questions) {
@@ -79,7 +89,7 @@ public class QuestionService {
             questionDtos.add(questionDto);
 
         }
-        paginationDTO.setQuestions(questionDtos);
+        paginationDTO.setData(questionDtos);
 
         return paginationDTO;
     }
@@ -124,7 +134,7 @@ public class QuestionService {
             questionDtos.add(questionDto);
 
         }
-        paginationDTO.setQuestions(questionDtos);
+        paginationDTO.setData(questionDtos);
 
         return paginationDTO;
     }

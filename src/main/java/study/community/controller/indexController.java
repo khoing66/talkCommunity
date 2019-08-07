@@ -24,13 +24,16 @@ public class indexController {
     QuestionMapper questionMapper;
     @Autowired
     QuestionService questionService;
+
     @GetMapping("/")
     public String index(HttpServletRequest request, Model model,
-                        @RequestParam(name = "page",defaultValue = "1") Integer page,
-                        @RequestParam(name="size",defaultValue = "5") Integer size) {
+                        @RequestParam(name = "search", required = false) String search,
+                        @RequestParam(name = "page", defaultValue = "1") Integer page,
+                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
 
-        PaginationDTO pagination = questionService.list(page,size);
+        PaginationDTO pagination = questionService.list(page, size,search);
         model.addAttribute("pagination", pagination);
+        model.addAttribute("search", search);
 
         return "index";
     }

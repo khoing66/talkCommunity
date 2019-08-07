@@ -1,5 +1,6 @@
 package study.community.mapper;
 
+import study.community.dto.QuestionSearchDTO;
 import study.community.model.Question;
 
 import java.util.List;
@@ -17,4 +18,10 @@ public interface QuestionExtMapper {
     int incComment(Question question);
 
     List<Question> selectRelated(Question question);
+
+    Integer countBySearch(QuestionSearchDTO questionSearchDTO);
+
+    List<Question> selectBySearch(QuestionSearchDTO questionSearchDTO);
 }
+
+

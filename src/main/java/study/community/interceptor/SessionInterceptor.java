@@ -2,12 +2,14 @@ package study.community.interceptor;
 
 import com.sun.xml.internal.ws.runtime.config.TubelineFeatureReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import study.community.mapper.UserMapper;
 import study.community.model.User;
 import study.community.model.UserExample;
+import study.community.service.NotificationService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +28,9 @@ import java.util.List;
 public class SessionInterceptor implements HandlerInterceptor {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    NotificationService notificationService;
+
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
@@ -49,11 +54,14 @@ public class SessionInterceptor implements HandlerInterceptor {
                     List<User> users = userMapper.selectByExample(userExample);
                     if (users.size()!=0) {
                         request.getSession().setAttribute("user", users.get(0));
+                        long unreadCount = notificationService.unreadCount(users.get(0).getAccountId());
+                        request.getSession().setAttribute("unreadCount", unreadCount);
                         break;
                     }
                 }
             }
         }
+
         return true;
     }
 }
