@@ -1,0 +1,101 @@
+[33mcommit 8bdf33e8632f10acb1afe2cb60478eacaedabee7[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Wed Aug 7 19:31:08 2019 +0800
+
+    add search
+
+[33mcommit 0578bb4bc430d748a03d0f780ce9d40e73da2ce2[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Sat Aug 3 17:03:13 2019 +0800
+
+    add tag and related questions
+
+[33mcommit 1a33967822fd9c075b0f53bdf34c758f984a33c2[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Thu Aug 1 23:53:14 2019 +0800
+
+    comply question page
+
+[33mcommit 5916d1917ded1d97fa42b14b9ac5435ec66ef74d[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Thu Aug 1 15:30:48 2019 +0800
+
+    error handle
+
+[33mcommit fe13d4b5d891ae2e83129037cc823d81517c6e6c[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Tue Jul 30 23:46:39 2019 +0800
+
+    add edit and reply the login quesiton
+
+[33mcommit 8f042ea1aa7cb7857ef2b7f3badf7bf66cf88f76[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Tue Jul 30 14:40:34 2019 +0800
+
+    edit personal html page
+
+[33mcommit 9c6f9269924101a9b684af3c4851b6395c8064f9[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Tue Jul 30 11:47:02 2019 +0800
+
+    page and personal question
+
+[33mcommit 40773109aa927ec5c9979f84dc12a05340150304[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Sun Jul 28 19:32:48 2019 +0800
+
+    add lombok and user photo
+
+[33mcommit 5f74c411de0d12bba049585944c8fef14843cb85[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Sun Jul 28 17:47:08 2019 +0800
+
+    add sql and clint connection
+
+[33mcommit 82f8a56d54a96a242102878b7c5ab83ce2fb98d5[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Sun Jul 28 12:06:45 2019 +0800
+
+    add question table and question.html
+
+[33mcommit e5bd987beb26d977d2ef9b1539b382ca523d7555[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Sat Jul 27 23:33:01 2019 +0800
+
+    flyway add bio
+
+[33mcommit eb82452e150daba91eacde571c4cfbdd0a46a5df[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Sat Jul 27 22:51:16 2019 +0800
+
+    login with no password and insert h2 sql database
+
+[33mcommit 41b88a8062939d4a8b8b45e8cd0b1ca4f0d12c33[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Fri Jul 26 10:27:06 2019 +0800
+
+    add index and bootstrap
+
+[33mcommit 209738970876affd927613513a7ffde7ff52b674[m
+Author: khoing66 <52462936+khoing66@users.noreply.github.com>
+Date:   Fri Jul 26 09:32:37 2019 +0800
+
+    Delete eval
+
+[33mcommit e4b4abdc7ead4a0b95f10d642ce3aa72cb5160e6[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Fri Jul 26 09:24:50 2019 +0800
+
+    readme..
+
+[33mcommit 5abd9f719d17ea68831549e5b51265a4768ea40a[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Fri Jul 26 09:21:51 2019 +0800
+
+    readme
+
+[33mcommit dfdfe31b91617e781e9b8cd35a73ba08250fe77f[m
+Author: khoing66 <khoing66@users.noreply.github.com>
+Date:   Fri Jul 26 09:04:37 2019 +0800
+
+    init repository

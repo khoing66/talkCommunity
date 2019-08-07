@@ -1,0 +1,14 @@
+2019-08-07 21:04:42.890  INFO 9532 --- [restartedMain] study.community.CommunityApplication     : Starting CommunityApplication on DESKTOP-FSN6342 with PID 9532 (D:\Code\community\target\classes started by khoing in D:\Code\community)
+2019-08-07 21:04:42.905  INFO 9532 --- [restartedMain] study.community.CommunityApplication     : No active profile set, falling back to default profiles: default
+2019-08-07 21:04:43.218  INFO 9532 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-08-07 21:04:43.218  INFO 9532 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-08-07 21:04:47.890  INFO 9532 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-08-07 21:04:47.968  INFO 9532 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-08-07 21:04:47.968  INFO 9532 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-08-07 21:04:48.233  INFO 9532 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-08-07 21:04:48.233  INFO 9532 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 5015 ms
+2019-08-07 21:04:49.764  INFO 9532 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-08-07 21:04:49.968  INFO 9532 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-08-07 21:04:50.296  INFO 9532 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-08-07 21:04:50.405  INFO 9532 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2019-08-07 21:04:50.421  INFO 9532 --- [restartedMain] study.community.CommunityApplication     : Started CommunityApplication in 9.703 seconds (JVM running for 26.396)
