@@ -1,5 +1,6 @@
 package study.community.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.UUID;
  * @author khoing
  */
 @Controller
+@Slf4j
 public class AuthorizeController {
     @Autowired
     private githubProvider githubPvder;
@@ -87,6 +89,7 @@ public class AuthorizeController {
 
             return "redirect:/";
         } else {
+            log.error("callback get github error,{}", gitUser);
             return "redirect:/";
 
         }

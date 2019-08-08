@@ -41,7 +41,7 @@ public class QuestionService {
     private QuestionExtMapper questionExtMapper;
 
 
-    public  PaginationDTO list( Integer page, Integer size,String search) {
+    public  PaginationDTO list( Integer page, String tag,Integer size,String search) {
         if (StringUtils.isNotBlank(search)) {//isBlank相当于判断空和“”和空字符串
             String[] tags = StringUtils.split(search, " ");
             search = Arrays.stream(tags).collect(Collectors.joining("|"));
@@ -53,7 +53,7 @@ public class QuestionService {
 
         QuestionSearchDTO questionSearchDTO = new QuestionSearchDTO();
         questionSearchDTO.setSearch(search);
-
+        questionSearchDTO.setTag(tag);
         Integer totalCount = (int) questionExtMapper.countBySearch(questionSearchDTO);
 
         if (totalCount % size == 0 || totalCount == 0) {
