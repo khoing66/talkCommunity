@@ -25,7 +25,7 @@
   *talkCommuntiy* 目前还没有搭配到服务器，只能通过下载源码运行测试功能。
 <a name="获取代码"></a>  
 ## 获取代码  
-github项目源码: <https://github.com/khoing66/talkCommunity/delete/master/eval><br>  
+github项目源码: <https://github.com/khoing66/talkCommunity/><br>  
 <a name="资料"></a>  
   ## 资料
   [Spring 文档](https://spring.io/guides)    
